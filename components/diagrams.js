@@ -6,19 +6,19 @@ const Diagrams = () => {
   return (
     <div className={styles.diagrams}>
       <Image
-        src="/../public/hipaa.png"
+        src="/hipaa.png"
         alt="no diagrams"
         width={300}
         height={200}
       />
       <Image
-        src="/../public/hitech.png"
+        src="/hitech.png"
         alt="no diagrams"
         width={350}
         height={200}
       />
       <Image
-        src="/../public/gdpr.png"
+        src="/gdpr.png"
         alt="no diagrams"
         width={300}
         height={200}
