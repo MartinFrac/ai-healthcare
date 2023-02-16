@@ -17,6 +17,18 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => setQuestions(data))
       .catch((error) => console.log(error));
+    // fetch("/api/model", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     exp: 1.8,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data))
+    //   .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
     console.log(answers);
