@@ -1,7 +1,32 @@
 .header {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
   position: fixed;
   top: 0;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.card__content {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.propositions {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.propositions:hover {
+  color: black;
+  background-color: white;
+  cursor: pointer;
 }
 
 .start {
@@ -29,63 +54,32 @@
 }
 
 .header__content {
-  padding: 1rem 3rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   width: 100vw;
 }
 
 .header__left {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header__right {
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main {
   display: flex;
-  margin-top: 3rem;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 6rem;
-  background-image: url('../public/bg.jpg');
+  background-image: url('../public/background.jpg');
   background-size: cover;
-}
-
-.card {
-  border-radius: 1rem;
-  padding: 2rem;
-  background-color: rgba(24, 24, 24, 0.6);
-  min-height: 4rem;
-  min-width: 16rem;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.question {
-
-}
-
-.answers {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.answer {
-  border: 1px solid white;
-  border-radius: 1rem;
-  text-align: center;
-}
-
-.answer:hover {
-  cursor: pointer;
-  background-color: white;
-  color: black;
+  height: 780px;
 }
 
 .diagrams {

@@ -1,15 +1,16 @@
-import React from "react";
-import styles from "@/styles/Home.module.css";
+import React, { useState } from "react";
 
-const Card = ({ next, question }) => {
+const Card = (props) => {
+  const defaultStyle = {
+    borderRadius: '1rem',
+    padding: '2rem',
+    backgroundColor: 'rgba(24, 24, 24, 0.6)',
+    color: 'white',
+  }
+
   return (
-    <div className={styles.card}>
-      <div className={styles.question}>{question.content}</div>
-      <div className={styles.answers}>
-        {question.answers.map((answer) => (
-          <div onClick={() => next(answer.id)} className={styles.answer} key={answer.id}>{answer.content}</div>
-        ))}
-      </div>
+    <div style={defaultStyle}>
+      {props.children}
     </div>
   );
 };

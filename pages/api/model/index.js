@@ -1,12 +1,12 @@
 export default async function handler(req, res) {
-  const { exp } = req.body;
+  const { symptoms } = req.body;
   const response = await fetch("http://localhost:5000/api", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      exp: exp,
+      symptoms: symptoms,
     }),
   });
   const data = await response.json();

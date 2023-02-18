@@ -1,74 +1,64 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import Card from "@/components/Card";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Footer from "@/components/footer";
-import Diagrams from "@/components/diagrams";
-import Header from "@/components/header";
+import Footer from "@/components/Footer";
+import Diagrams from "@/components/Diagrams";
+import Header from "@/components/Header";
+import SearchableList from "@/components/searchableList";
+import ChosenList from "@/components/ChosenList";
+import Card from "@/components/Card";
 
 export default function Home() {
   const [start, setStart] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
+  const [symptoms, setSymptoms] = useState([]);
+  const [chosenSymptoms, setChosenSymptoms] = useState([]);
   useEffect(() => {
-    fetch("/api/questions")
+    fetch("/api/symptoms")
       .then((res) => res.json())
-      .then((data) => setQuestions(data))
+      .then((data) => setSymptoms(data))
       .catch((error) => console.log(error));
-    // fetch("/api/model", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     exp: 1.8,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.log(error));
   }, []);
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
 
-  const saveAnswer = (id) => {
-    setAnswers((prev) => [
-      ...prev,
-      {
-        questionID: currentQuestion,
-        answerID: id,
+  const onSubmit = async () => {
+    fetch("/api/model", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ]);
-  };
-
-  const nextQuestion = (id) => {
-    if (answers.length == currentQuestion + 1) return;
-    saveAnswer(id);
-    if (questions.length - 1 <= currentQuestion) return;
-    setCurrentQuestion((old) => old + 1);
+      body: JSON.stringify({
+        symptoms: chosenSymptoms,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
   };
 
   const Content = () => {
-    let output = (
+    if (start) {
+      return (
+        <div className={styles.cards}>
+          <Card>
+            <SearchableList items={symptoms} setChosenSymptoms={setChosenSymptoms}/>
+          </Card>
+          <Card>
+            <ChosenList items={chosenSymptoms}/>
+          </Card>
+        </div>
+      );
+    }
+    return (
       <div className={styles.start}>
-        <div className={styles.start__text}>Start your journey with us</div>
+        <div className={styles.start__text}>The Earlier The Better</div>
+        Immediate diagnosis
         <div onClick={() => setStart(true)} className={styles.start__button}>
           Start
         </div>
       </div>
     );
-    if (start) {
-      output = (
-        <Card next={nextQuestion} question={questions[currentQuestion]} />
-      );
-    }
-    return output;
   };
 
-  if (questions.length == 0) {
+  if (symptoms.length == 0) {
     return <div>Loading...</div>;
   }
   return (
