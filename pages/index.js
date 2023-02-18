@@ -12,6 +12,7 @@ export default function Home() {
   const [start, setStart] = useState(false);
   const [symptoms, setSymptoms] = useState([]);
   const [chosenSymptoms, setChosenSymptoms] = useState([]);
+  const [response, setResponse] = useState("");
   useEffect(() => {
     fetch("/api/symptoms")
       .then((res) => res.json())
@@ -30,19 +31,29 @@ export default function Home() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => setResponse(data))
       .catch((error) => console.log(error));
   };
 
   const Content = () => {
+    if (response) {
+      return (
+        <Card>
+          <div style={{ width: '300px' }}>{response}</div>
+        </Card>
+      );
+    }
     if (start) {
       return (
         <div className={styles.cards}>
           <Card>
-            <SearchableList items={symptoms} setChosenSymptoms={setChosenSymptoms}/>
+            <SearchableList
+              items={symptoms}
+              setChosenSymptoms={setChosenSymptoms}
+            />
           </Card>
           <Card>
-            <ChosenList items={chosenSymptoms}/>
+            <ChosenList items={chosenSymptoms} submit={onSubmit} />
           </Card>
         </div>
       );

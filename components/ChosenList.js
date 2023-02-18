@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChosenList = ({ items }) => {
+const ChosenList = ({ items, submit }) => {
   const styles = {
     display: "flex",
     flexDirection: "row",
@@ -27,6 +27,9 @@ const ChosenList = ({ items }) => {
             <li key={index}>{item}</li>
           ))}
         </ul>
+      </div>
+      <div onClick={submit} style={{ marginTop: '1rem', background: 'white', color: 'black', textAlign: 'center', borderRadius: '1rem', cursor: 'pointer' }}>
+        Submit
       </div>
     </div>
   );
