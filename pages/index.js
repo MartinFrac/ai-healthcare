@@ -21,6 +21,8 @@ export default function Home() {
   }, []);
 
   const onSubmit = async () => {
+    console.log(chosenSymptoms);
+    if (chosenSymptoms.length < 5) return;
     fetch("/api/model", {
       method: "POST",
       headers: {
@@ -35,11 +37,23 @@ export default function Home() {
       .catch((error) => console.log(error));
   };
 
+  const reset = () => {
+    setChosenSymptoms([])
+    setResponse("");
+  }
+
   const Content = () => {
     if (response) {
       return (
         <Card>
-          <div style={{ width: '300px' }}>{response}</div>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1rem" }}>
+            <div style={{ width: "500px" }}>
+              {response.map((item, index) => (
+                <div key={index}>{item}</div>
+              ))}
+            </div>
+            <div onClick={reset} style={{ background: "white", color: "black", textAlign: "center", borderRadius: "1rem", cursor: "pointer" }}>Reset</div>
+          </div>
         </Card>
       );
     }
@@ -49,6 +63,7 @@ export default function Home() {
           <Card>
             <SearchableList
               items={symptoms}
+              chosenSymptoms={chosenSymptoms}
               setChosenSymptoms={setChosenSymptoms}
             />
           </Card>
@@ -84,6 +99,9 @@ export default function Home() {
       <main className={styles.main}>
         <Content></Content>
       </main>
+      <div className={styles.disclaimer}>
+        Disclaimer
+      </div>
       <Diagrams />
       <Footer />
     </>

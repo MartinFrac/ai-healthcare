@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from "@/styles/Home.module.css";
 
-function SearchableList({ items, setChosenSymptoms }) {
+function SearchableList({ items, chosenSymptoms, setChosenSymptoms }) {
   const [query, setQuery] = useState('');
   const [filteredItems, setFilteredItems] = useState(items);
 
@@ -15,6 +15,7 @@ function SearchableList({ items, setChosenSymptoms }) {
   };
 
   const handleClick = (item) => {
+    if (chosenSymptoms.includes(item)) return;
     setChosenSymptoms(prev => [
       ...prev,
       item

@@ -31,6 +31,9 @@ const ChosenList = ({ items, submit }) => {
       <div onClick={submit} style={{ marginTop: '1rem', background: 'white', color: 'black', textAlign: 'center', borderRadius: '1rem', cursor: 'pointer' }}>
         Submit
       </div>
+      <div style={{ marginTop: "1rem" }}>
+        You need to provide at least 5 symptoms
+      </div>
     </div>
   );
 };

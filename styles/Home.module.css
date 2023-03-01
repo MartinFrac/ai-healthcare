@@ -4,6 +4,12 @@
   top: 0;
 }
 
+.disclaimer {
+  text-align: center;
+  padding: 1rem;
+  font-style: italic;
+}
+
 .cards {
   display: flex;
   flex-direction: row;
