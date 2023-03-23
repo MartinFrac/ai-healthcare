@@ -13,6 +13,7 @@ export default function Home() {
   const [symptoms, setSymptoms] = useState([]);
   const [chosenSymptoms, setChosenSymptoms] = useState([]);
   const [response, setResponse] = useState("");
+  const [nhsNumber, setNhsNumber] = useState("");
   useEffect(() => {
     fetch("/api/symptoms")
       .then((res) => res.json())
@@ -30,6 +31,7 @@ export default function Home() {
       },
       body: JSON.stringify({
         symptoms: chosenSymptoms,
+        nhsNumber: nhsNumber
       }),
     })
       .then((res) => res.json())
@@ -38,21 +40,40 @@ export default function Home() {
   };
 
   const reset = () => {
-    setChosenSymptoms([])
+    setChosenSymptoms([]);
     setResponse("");
-  }
+    setStart(false);
+  };
 
-  const Content = () => {
+  const Content = (props) => {
     if (response) {
       return (
         <Card>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
+          >
             <div style={{ width: "500px" }}>
               {response.map((item, index) => (
                 <div key={index}>{item}</div>
               ))}
             </div>
-            <div onClick={reset} style={{ background: "white", color: "black", textAlign: "center", borderRadius: "1rem", cursor: "pointer" }}>Reset</div>
+            <div
+              onClick={reset}
+              style={{
+                background: "white",
+                color: "black",
+                textAlign: "center",
+                borderRadius: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              Reset
+            </div>
           </div>
         </Card>
       );
@@ -80,6 +101,14 @@ export default function Home() {
         <div onClick={() => setStart(true)} className={styles.start__button}>
           Start
         </div>
+        <div className={styles.nhs}>
+          Your NHS number
+          <input
+            type="text"
+            value={nhsNumber}
+            onChange={(e) => setNhsNumber(e.target.value)}
+          />
+        </div>
       </div>
     );
   };
@@ -96,12 +125,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className={styles.main}>
-        <Content></Content>
-      </main>
-      <div className={styles.disclaimer}>
-        Disclaimer
-      </div>
+      <main className={styles.main}>{Content()}</main>
+      <div className={styles.disclaimer}>Disclaimer</div>
       <Diagrams />
       <Footer />
     </>
