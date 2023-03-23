@@ -134,5 +134,6 @@ export default function handler(req, res) {
       "red sore around nose",
       "yellow crust ooze",
       "prognosis",
+      "lack of balance"
     ]);
 }
